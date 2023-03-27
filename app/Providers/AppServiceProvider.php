@@ -111,7 +111,7 @@ class AppServiceProvider extends ServiceProvider
             } else {
                 $menu = array();
             }
-            $event->menu->add('Menu principal');
+            // $event->menu->add('Menu principal');
             
             $valores = json_decode($menu);
             $valoresCascada1 = [];
@@ -190,22 +190,60 @@ class AppServiceProvider extends ServiceProvider
             }
             $string="";
             foreach($valoresCascada2 as $menuRow){
-                $principal=[
-                         'text' => $menuRow->nombreMenu,
-                         'url' =>"",
-                ];
-                $event->menu->add($principal);
+                // dump($menuRow);
+               
                 if(tieneHijos($menuRow->hijos)){
-                   
+                    $arrayStringsHIjos=array();
+                    foreach($menuRow->hijos as $hijo){
+                        $principalHIjos="[
+                            'text' => $hijo->nombreMenu,
+                            'url' =>,
+                        ]";
+                        $arrayStringsHIjos[]=$principalHIjos;
+                    }
+                    
+                    
                 }else{
                    
-                }
+                 }
+                 $string=implode(",",$arrayStringsHIjos);
+                 $principal=[
+                    'text' => $menuRow->nombreMenu,
+                    'url' =>"",
+                    'submenu'=>[$string]
+                 ];
+                //  var_dump(($principal));
+                //  exit();
+                // $event->menu->add($principal);
+                // dump($event->menu->menu);
+                // exit();
                 
                 
             }
-
+            // $menuini=[
+            //     'key'  => 'pages',
+            //     'text' => 'Pages',
+            //     'url'  => 'admin/pages',
+            //     'icon' => 'far fa-fw fa-file',
+            // ];
+            // $event->menu->add($menuini);
            
-            // dump($valoresCascada2);
+            // $event->menu->addAfter('pages', [
+            //     'key' => 'account_settings',
+            //     'header' => 'Account Settings',
+            // ]);
+        
+            // $event->menu->addIn('account_settings', [
+            //     'key' => 'account_settings_notifications',
+            //     'text' => 'Notifications',
+            //     'url' => 'account/edit/notifications',
+            // ]);
+        
+            // $event->menu->addBefore('account_settings_notifications', [
+            //     'key' => 'account_settings_profile',
+            //     'text' => 'Profile',
+            //     'url' => 'account/edit/profile',
+            // ]);
         
         });
     }
