@@ -26,10 +26,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/datosNotaria', [App\Http\Controllers\DataNotariaController::class, 'index'])->name('datosNotaria')->middleware('auth');
+Route::get('/datosNotaria', [App\Http\Controllers\DataNotariaController::class, 'index'])->name('datosNotaria')->middleware(['auth','admin']);
 
-Route::get('/adminUsuarios', [App\Http\Controllers\AdminUsuariosController::class, 'index'])->name('adminUsuarios')->middleware('auth');
+Route::get('/adminUsuarios', [App\Http\Controllers\AdminUsuariosController::class, 'index'])->name('adminUsuarios')->middleware(['auth','admin']);
 
-Route::post('/DatosNotaria/Consulta',[App\Http\Controllers\DataNotariaController::class, 'consultaVariables'])->name('DatosNotaria.consulta');
-Route::post('/DatosNotaria/Actualizar',[App\Http\Controllers\DataNotariaController::class, 'actualizarVariable'])->name('DatosNotaria.actualizar');
-Route::post('/DatosNotaria/cargarMunicipios',[App\Http\Controllers\DataNotariaController::class, 'cargarMunicipios'])->name('DatosNotaria.cargarMunicipios');
+Route::post('/DatosNotaria/Consulta',[App\Http\Controllers\DataNotariaController::class, 'consultaVariables'])->name('DatosNotaria.consulta')->middleware('auth');
+Route::post('/DatosNotaria/Actualizar',[App\Http\Controllers\DataNotariaController::class, 'actualizarVariable'])->name('DatosNotaria.actualizar')->middleware('auth');
+Route::post('/DatosNotaria/cargarMunicipios',[App\Http\Controllers\DataNotariaController::class, 'cargarMunicipios'])->name('DatosNotaria.cargarMunicipios')->middleware('auth');

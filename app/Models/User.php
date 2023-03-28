@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Rol;
 
 class User extends Authenticatable
 {
@@ -56,6 +57,14 @@ class User extends Authenticatable
     }
     public function getAuthIdentifier(){
         return $this->id_usuario;
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Rol::class, 'usuariorol','id_usuario', 'usuariorol.id_rol');
+    }
+    public function hasRole($roleName)
+    {
+        return $this->roles()->where('usuariorol.id_rol', $roleName)->exists();
     }
    
 }
