@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Livewire\Administracion\AdministracionUsuarios;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +28,11 @@ Route::get('/', function () {
 
 Route::get('/datosNotaria', [App\Http\Controllers\DataNotariaController::class, 'index'])->name('datosNotaria')->middleware(['auth','admin']);
 
-Route::get('/adminUsuarios', [App\Http\Controllers\AdminUsuariosController::class, 'index'])->name('adminUsuarios')->middleware(['auth','admin']);
+
+ Route::get('/adminUsuarios',function () {
+    return view('admin.mantenimiento.cuentasUsuario.administracionUsuarios');
+})->middleware(['auth','admin']);
+
 
 Route::post('/DatosNotaria/Consulta',[App\Http\Controllers\DataNotariaController::class, 'consultaVariables'])->name('DatosNotaria.consulta')->middleware('auth');
 Route::post('/DatosNotaria/Actualizar',[App\Http\Controllers\DataNotariaController::class, 'actualizarVariable'])->name('DatosNotaria.actualizar')->middleware('auth');

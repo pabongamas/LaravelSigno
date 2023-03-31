@@ -183,6 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Livewire\LivewireServiceProvider::class,
 
         /*
          * Package Service Providers...

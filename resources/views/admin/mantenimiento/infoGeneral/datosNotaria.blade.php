@@ -432,3 +432,4 @@
 @endsection
 <script  defer src="{{ asset('js/DatosNotaria.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/DatosNotaria.css') }}">
+
