@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'dark-mode',
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
@@ -33,6 +34,7 @@ module.exports = {
       "w100":"100%"
     },
     colors:{
+      'darkBtnPrimary':'#3f6791',
       'whitePrincipal': '#ffffff',
       'signUsaPrimary': {
         general: '#007D59',
@@ -62,6 +64,15 @@ module.exports = {
         800: '#1e293b',
         900: '#0f172a',
       },
+    },
+    fontSize: {
+      sm: '0.8rem',
+      base: '1rem',
+      xl: '1.25rem',
+      '2xl': '1.563rem',
+      '3xl': '1.953rem',
+      '4xl': '2.441rem',
+      '5xl': '3.052rem',
     },
    
     extend: {},

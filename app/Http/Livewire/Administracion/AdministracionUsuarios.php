@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\DB;
 class AdministracionUsuarios extends Component
 {
     public $usuarios;
-    public $editing=false;
     public $editingUserId=null;
     public $password;
+    public $AdminModalTitle;
 
     protected $listeners = ['render'];
 
@@ -35,6 +35,7 @@ class AdministracionUsuarios extends Component
 
     public function mount() {
         $this->usuarios = array();
+        $this->AdminModalTitle="";
     }
     
     public function changePassword($iduser){
@@ -43,11 +44,29 @@ class AdministracionUsuarios extends Component
     public function updatePassword(){
         $userId=$this->editingUserId;
         $password=$this->password;
-        $user=User::find($userId);
-        $user->clave=bcrypt($password);
-        $user->save();
         $this->editingUserId=null;
         $this->password='';
+        if(!empty($password)){
+            $user=User::find($userId);
+            $user->clave=bcrypt($password);
+            $user->save();
+            $this->emit('mostrar-alerta', [
+                'titulo' => 'Actualización exitosa',
+                'mensaje' =>"Se ha actualizado correctamente la contraseña para el usuario ". $user->login,
+                'tipo' => 'success'
+            ]);
+        }
+       
+    }
+    public function openModalAdmin($accion){
+        if($accion=='new'){
+            $title="Nuevo Usuario";
+        }else{
+            $title="Edición Usuario";
+        }
+        $this->emit('open-modal',[
+            'title' => $title
+        ]);
     }
 
 

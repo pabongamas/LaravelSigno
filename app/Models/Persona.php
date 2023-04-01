@@ -24,5 +24,9 @@ class Persona extends Model
         'idmunicipio',
         'celular'
     ];
+    public function getNombreCompleto()
+    {
+        return $this->attributes['nombre_usuario']." ".$this->attributes['apellidos_usuario'];
+    }
 
 }
