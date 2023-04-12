@@ -14,13 +14,16 @@ class AdministracionUsuarios extends Component
     public $editingUserId=null;
     public $password;
     public $AdminModalTitle;
+    public $actionNew=false;
 
     protected $listeners = ['render'];
 
     public function render()
     {
-        $this->usuarios=User::select("usuarios.id_usuario as DT_RowId","horasacceso","usuarios.id_usuario","login","usuarios.estado as estado","persona.*","abreviatura")
-        // ->whereRaw('(select count(*) from usuariorol where usuariorol.id_usuario=usuarios.id_usuario) as roles')
+        $this->usuarios=User::select("usuarios.id_usuario as DT_RowId",
+        "horasacceso","usuarios.id_usuario","login","usuarios.estado as estado",
+        "persona.*","abreviatura",
+        DB::raw('(select count(*) from usuariorol where usuariorol.id_usuario=usuarios.id_usuario) as roles'))
         ->leftJoin('usuariosucursal', 'usuariosucursal.id_usuario', '=', 'usuarios.id_usuario')
         ->join('persona', function($join) {
             $join->on('persona.tipo_documento', '=', 'usuarios.tipo_documento')
@@ -59,8 +62,12 @@ class AdministracionUsuarios extends Component
        
     }
     public function openModalAdmin($accion){
+        $this->actionNew=false;
         if($accion=='new'){
             $title="Nuevo Usuario";
+            $this->actionNew=true;
+        }else if($accion=='rol'){
+            $title="Asignacion de roles";
         }else{
             $title="Edición Usuario";
         }

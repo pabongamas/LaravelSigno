@@ -17,12 +17,13 @@
           <tr>
             <th class="w-w10 px-6 py-3 text-center" scope="col" colspan="2">Acciones</th>
             <th scope="col" class="text-center w-w10 px-6 py-3">Id</th>
-            <th scope="col" class="text-left w-w40 px-6 py-3">Nombres y apellidos</th>
-            <th scope="col" class="text-left w-w30 px-6 py-3">usuario</th>
-            <th scope="col" class="text-center w-w30 px-6 py-3">Contraseña</th>
+            <th scope="col" class="text-left w-w20 px-6 py-3">Nombres y apellidos</th>
+            <th scope="col" class="text-left w-w20 px-6 py-3">usuario</th>
+            <th scope="col" class="text-center w-w20 px-6 py-3">Contraseña</th>
+            <th scope="col" class="text-center w-w20 px-6 py-3">Rol</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="">
           @foreach ($usuarios as $user)
               <tr class="border-b">
                 <td class="w-w5 text-center px-2 py-2">
@@ -34,13 +35,13 @@
                 <td class="w-w10 text-center px-2 py-2">
                     <span>{{$user->id_usuario}}</span>
                 </td>
-                <td class="w-w40 px-2 py-2">
+                <td class="w-w20 px-2 py-2">
                     <span>{{$user->nombre_usuario}} {{$user->apellidos_usuario}}</span>
                 </td>
-                <td class="w-w30 px-2 py-2">
+                <td class="w-w20 px-2 py-2">
                     <span>{{$user->login}}</span>
                 </td>
-                <td class="w-w30 text-center px-2 py-2">
+                <td class="w-w20 text-center px-2 py-2">
                     @if ($editingUserId == $user->id_usuario)
                         <input type="password" wire:model="password" wire:blur="updatePassword()" placeholder="Ingrese contraseña" class="form-control shadow-md focus:bg-primary-100 border-1px border-solid border-primary-500 focus:border-1px">
                     @else
@@ -48,11 +49,16 @@
                     @endif
                     
                 </td>
+                <td class="w-w20 text-center px-2 py-2">
+                  <div wire:click="openModalAdmin('rol')"  class="rounded shadow-md btn bg-primary-500 hover:bg-primary-400 text-whitePrincipal hover:text-whitePrincipal">
+                    <span>{{$user->roles>1?$user->roles." Roles":$user->roles." Rol"}}</span>
+                  </div>
+                </td>
           @endforeach
         </tbody>
       </table>
     </div>
-    <div class="modal" id="modalAdmin" data-bs-toggle="modal" tabindex="-1">
+    <div class="modal fade" id="modalAdmin" data-bs-toggle="modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -69,10 +75,33 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
             </div>
             <div class="modal-body">
-              <p>Modal body text goes here.</p>
+              @if ($actionNew)
+              <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                  <label for="tipodoc" class="form-label">Tipo Documento</label>
+                  <select name="tipodoc" class="form-control  hover:border-darkBtnPrimary focus:border-primary-400" id="tipodoc">
+                  </select>
+                </div>
+                <div class="col-lg-8 col-sm-12">
+                  <label for="tipodoc" class="form-label">N&uacute;mero de identificaci&oacute;n</label>
+                  <input type="text" class="form-control hover:border-darkBtnPrimary focus:border-primary-400">
+                </div>
+              
+              </div>
+           
+              {{-- <div class="mb-3 col-lg-12 col-md-6">
+                <label for="tipodoc" class="form-label">Tipo Documento</label>
+                <select name="tipodoc" class="form-control" id="tipodoc">
+                </select>
+              </div>
+              <div class="mb-3 col-lg-12 col-md-6">
+                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div> --}}
+              @endif
+             
             </div>
             <div class="modal-footer">
-              <button type="button" class="p-1 px-8 btn bg-secondary-500 hover:bg-secondary-400 text-whitePrincipal hover:text-whitePrincipal" data-bs-dismiss="modal">Close</button>
               <button type="button" class="p-1 px-8 btn bg-primary-500 hover:bg-primary-400 text-whitePrincipal hover:text-whitePrincipal">Save changes</button>
             </div>
           </div>
